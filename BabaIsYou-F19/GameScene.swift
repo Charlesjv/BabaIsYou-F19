@@ -99,8 +99,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Called before each frame is rendered
         
         
-        if (stopBlock.position.y <= isBlock.position.y - 50 ){
+        if (stopBlock.position.y <= isBlock.position.y - 35 ){
             topWall.removeFromParent()
+            
+        }
+        if(flagBlock.position.y == isBlock.position.y && isBlock.position.y == winBlock.position.y){
             
         }
         
@@ -148,10 +151,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func addLabel() {
-        label.name = "labelNivel"
+        
         label.text = "Congratulations"
         label.fontSize = 67
-        
         label.fontColor = UIColor.white
         label.position = CGPoint.zero
         label.zPosition = 11
