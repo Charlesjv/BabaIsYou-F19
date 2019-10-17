@@ -12,6 +12,11 @@ import GameplayKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var baba = SKSpriteNode()
+    var winBlock = SKSpriteNode()
+    var stopBlock = SKSpriteNode()
+    var isBlock = SKSpriteNode()
+    var wall = SKSpriteNode()
+    
     let PLAYER_SPEED:CGFloat = 10
 
    
@@ -20,8 +25,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         baba = childNode(withName: "baba") as! SKSpriteNode
-    
         
+        winBlock = childNode(withName: "winblock") as! SKSpriteNode
+        stopBlock = childNode(withName: "stopblock") as! SKSpriteNode
+    
+        isBlock = childNode(withName: "isblock") as! SKSpriteNode
+        
+        wall = childNode(withName: "wall") as! SKSpriteNode
         
         
         
@@ -29,11 +39,65 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
    
     func didBegin(_ contact: SKPhysicsContact) {
         print("Something collided!")
+        
+        let nodeA = contact.bodyA.node
+        let nodeB = contact.bodyB.node
+        
+        if(nodeA == nil || nodeB == nil){
+            return
+        }
+        
+        if(nodeA!.name == "stopblock"  && nodeB!.name == "baba"){
+            
+            if(stopBlock.position.y >= isBlock.position.y || stopBlock.position.y <= isBlock.position.y ){
+                
+                wall.physicsBody?.collisionBitMask = 0
+                baba.physicsBody?.collisionBitMask = 0
+                
+            }
+            
+            
+        }
+        
+        if(nodeA!.name == "baba"  && nodeB!.name == "stopblock"){
+            
+            
+        }
+        
+        
+        if(nodeA!.name == "exit" && nodeB!.name == "player"){
+            print("GAME WIN")
+            
+//
+//            if let scene = SKScene(fileNamed: "Level02") {
+//
+//                scene.scaleMode = .aspectFill
+//
+//                self.view?.presentScene(scene,transition: SKTransition.flipVertical(withDuration: 2.5))
+//
+//            }
+        }
+        if(nodeA!.name == "exit" && nodeB!.name == "player"){
+            print("GO TO LEVEL2")
+//
+//            if let scene = SKScene(fileNamed: "Level02") {
+//
+//                scene.scaleMode = .aspectFill
+//
+//                self.view?.presentScene(scene,transition: SKTransition.flipVertical(withDuration: 2.5))
+//
+//            }
+            
+            
+        }
+        
+        
     }
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
     }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
@@ -72,4 +136,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
     }
+    
+    
 }
