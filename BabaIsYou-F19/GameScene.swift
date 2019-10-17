@@ -16,6 +16,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var stopBlock = SKSpriteNode()
     var isBlock = SKSpriteNode()
     var wall = SKSpriteNode()
+    var topWall = SKSpriteNode()
     
     let PLAYER_SPEED:CGFloat = 10
 
@@ -33,6 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         wall = childNode(withName: "wall") as! SKSpriteNode
         
+        topWall = childNode(withName: "topwall") as! SKSpriteNode
         
         
     }
@@ -49,19 +51,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if(nodeA!.name == "stopblock"  && nodeB!.name == "baba"){
             
-            if(stopBlock.position.y >= isBlock.position.y || stopBlock.position.y <= isBlock.position.y ){
-                
-                wall.physicsBody?.collisionBitMask = 0
-                baba.physicsBody?.collisionBitMask = 0
-                
-            }
+           
+         print("Player collided with stop block1")
             
             
         }
         
         if(nodeA!.name == "baba"  && nodeB!.name == "stopblock"){
             
-            
+           
         }
         
         
@@ -96,6 +94,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        
+        
+        if (stopBlock.position.y <= isBlock.position.y ){
+            topWall.removeFromParent()
+            
+        }
     }
     
     
