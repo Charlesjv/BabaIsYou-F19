@@ -17,6 +17,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var isBlock = SKSpriteNode()
     var wall = SKSpriteNode()
     var topWall = SKSpriteNode()
+    var flagBlock = SKSpriteNode()
+    var label = SKLabelNode()
     
     let PLAYER_SPEED:CGFloat = 10
 
@@ -35,6 +37,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         wall = childNode(withName: "wall") as! SKSpriteNode
         
         topWall = childNode(withName: "topwall") as! SKSpriteNode
+        flagBlock = childNode(withName: "flagblock") as! SKSpriteNode
         
         
     }
@@ -63,10 +66,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         
-        if(nodeA!.name == "exit" && nodeB!.name == "player"){
+        if(nodeA!.name == "flag" && nodeB!.name == "baba"){
             print("GAME WIN")
             
-//
+                addLabel()
 //            if let scene = SKScene(fileNamed: "Level02") {
 //
 //                scene.scaleMode = .aspectFill
@@ -96,10 +99,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Called before each frame is rendered
         
         
-        if (stopBlock.position.y <= isBlock.position.y ){
+        if (stopBlock.position.y <= isBlock.position.y - 50 ){
             topWall.removeFromParent()
             
         }
+        
+        
     }
     
     
@@ -139,6 +144,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    }
+    
+    
+    func addLabel() {
+        label.name = "labelNivel"
+        label.text = "Congratulations"
+        label.fontSize = 67
+        
+        label.fontColor = UIColor.white
+        label.position = CGPoint.zero
+        label.zPosition = 11
+        self.addChild(label)
     }
     
     
